@@ -28,6 +28,15 @@ A floating joystick that sits on top of any app and "walks" your phone's GPS pos
 
 ## Notes
 - It spoofs the GPS, network, and fused providers, so Google Maps and most apps follow it.
-- Android marks mock locations, and some apps (banking, some games) check for that and
-  refuse or flag your account. Getting around that needs root and isn't included here.
+- Android marks every mock location as fake, and a normal app can't remove that mark.
+  On a **rooted phone with LSPosed**, JoyWalk doubles as an LSPosed module that hides it:
+  1. LSPosed › Modules › **JoyWalk** › enable it, and tick the apps that shouldn't see the
+     location as fake (Maps, the game, etc.).
+  2. Force-stop those apps (or reboot) so the hook loads.
+  3. JoyWalk's main screen shows "✓ Mock flag hidden" when the module is active.
+
+  Inside the ticked apps, `Location.isMock()` / `isFromMockProvider()` return false, the
+  `mockLocation` extra is removed, and the old "allow mock locations" setting reads off.
+  Apps with stronger checks (Play Integrity, root detection, looking for installed spoofers)
+  can still notice; use your root-hiding tools for those.
 - Big jumps (teleports) or fast speeds can trip anti-cheat "cooldown" or speed checks in games.

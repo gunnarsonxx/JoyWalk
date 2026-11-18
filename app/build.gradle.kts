@@ -29,4 +29,8 @@ android {
     }
 }
 
-// No external libraries: plain Android framework only.
+// No external libraries: plain Android framework only. The Xposed stubs are
+// compile-only (the real classes come from LSPosed on the phone).
+dependencies {
+    compileOnly(project(":xposed-stubs"))
+}

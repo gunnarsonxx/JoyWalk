@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JoyWalk"
 include(":app")
+include(":xposed-stubs")
