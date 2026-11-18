@@ -41,7 +41,9 @@ class MainActivity : Activity() {
             "One-time setup:\n" +
             "1. Turn on Developer options: Settings › About phone › tap \"Build number\" 7 times.\n" +
             "2. In Developer options › \"Select mock location app\" › choose JoyWalk.\n" +
-            "3. Allow JoyWalk to display over other apps."
+            "3. Allow JoyWalk to display over other apps.\n" +
+            "4. (Rooted phones) In LSPosed, enable the JoyWalk module and tick the apps that " +
+            "should not see the location as fake, then force-stop those apps."
         )
         button("Open Developer options") {
             open(Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS))
@@ -78,10 +80,15 @@ class MainActivity : Activity() {
     }
 
     private fun refreshStatus() {
-        status.text = if (SpoofService.running)
+        val run = if (SpoofService.running)
             "● Running — use the floating joystick. Stop it here or from the notification."
         else
             "○ Not running."
+        val hide = if (ModuleStatus.isActive())
+            "✓ Mock flag hidden from the apps ticked in LSPosed."
+        else
+            "✗ Apps can see the location is mocked (needs root + LSPosed, step 4)."
+        status.text = "$run\n\n$hide"
     }
 
     private fun open(intent: Intent) {

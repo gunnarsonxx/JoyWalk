@@ -18,6 +18,13 @@
         android:label="JoyWalk"
         android:theme="@android:style/Theme.Material.Light.DarkActionBar">
 
+        <!-- LSPosed/Xposed module: hides the "mock location" flag (see MockHider.kt). -->
+        <meta-data android:name="xposedmodule" android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Hides JoyWalk's mock-location flag from the apps you select." />
+        <meta-data android:name="xposedminversion" android:value="82" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
